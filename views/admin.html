@@ -1,0 +1,125 @@
+<div id="admin-view" class="view">
+    <div class="admin-container">
+        <!-- Metadata Cards at Top -->
+        <div class="admin-metadata-section">
+            <div class="metadata-cards">
+                <div class="metadata-card-new">
+                    <div class="metadata-icon">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <div class="metadata-info">
+                        <div class="metadata-value" id="totalRecords">0</div>
+                        <div class="metadata-label">Total de Registros</div>
+                    </div>
+                </div>
+                
+                <div class="metadata-card-new">
+                    <div class="metadata-icon">
+                        <i class="fas fa-hdd"></i>
+                    </div>
+                    <div class="metadata-info">
+                        <div class="metadata-value" id="dbSize">0 KB</div>
+                        <div class="metadata-label">Tamaño de BD</div>
+                    </div>
+                </div>
+                
+                <div class="metadata-card-new">
+                    <div class="metadata-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="metadata-info">
+                        <div class="metadata-value" id="lastModified">-</div>
+                        <div class="metadata-label">Última Modificación</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Two Column Layout -->
+        <div class="admin-columns">
+            <!-- Upload Section -->
+            <div class="admin-column upload-column">
+                <div class="column-card">
+                    <div class="column-header">
+                        <div class="column-icon upload-icon">
+                            <i class="fas fa-upload"></i>
+                        </div>
+                        <h3>Subir Base de Datos</h3>
+                    </div>
+                    
+                    <div class="upload-zone" id="uploadZone">
+                        <input type="file" id="jsonFileInput" accept=".json" style="display: none;">
+                        <div class="upload-content">
+                            <div class="upload-visual">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                            </div>
+                            <h4>Arrastra tu archivo JSON aquí</h4>
+                            <p>O haz clic para seleccionar un archivo</p>
+                            <button class="action-btn upload-btn" id="selectFileBtn">
+                                Seleccionar Archivo JSON
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="upload-info">
+                        <div class="info-item">
+                            <span class="info-label">Última Subida:</span>
+                            <span class="info-value" id="lastUpload">Nunca</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Download Section -->
+            <div class="admin-column download-column">
+                <div class="column-card">
+                    <div class="column-header">
+                        <div class="column-icon download-icon">
+                            <i class="fas fa-download"></i>
+                        </div>
+                        <h3>Descargar Base de Datos</h3>
+                    </div>
+                    
+                    <div class="download-options">
+                        <div class="download-option">
+                            <div class="download-option-icon">
+                                <i class="fas fa-file-code"></i>
+                            </div>
+                            <div class="download-option-content">
+                                <h4>Formato JSON</h4>
+                                <p>Base de datos completa en formato JSON</p>
+                                <button class="action-btn download-btn" id="downloadJsonBtn">
+                                    Descargar JSON
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="download-option">
+                            <div class="download-option-icon">
+                                <i class="fas fa-table"></i>
+                            </div>
+                            <div class="download-option-content">
+                                <h4>Formato CSV</h4>
+                                <p>Datos tabulares para análisis</p>
+                                <button class="action-btn download-btn" id="downloadCsvBtn">
+                                    Descargar CSV
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="download-info">
+                        <div class="info-item">
+                            <span class="info-label">Última Descarga JSON:</span>
+                            <span class="info-value" id="lastJsonDownload">Nunca</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Última Descarga CSV:</span>
+                            <span class="info-value" id="lastCsvDownload">Nunca</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

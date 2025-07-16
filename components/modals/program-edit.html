@@ -1,0 +1,62 @@
+<div id="program-edit-modal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4>Editar Programa</h4>
+            <span class="close-modal" id="closeProgramEditModal">&times;</span>
+        </div>
+        <div class="modal-body">
+            <form id="program-edit-form">
+                <input type="hidden" id="edit-program-id">
+                
+                <div class="form-group">
+                    <label>Nombre del Programa</label>
+                    <input type="text" id="edit-program-name" disabled>
+                </div>
+                
+                <div class="form-group">
+                    <label>Universidad</label>
+                    <input type="text" id="edit-program-university" disabled>
+                </div>
+                
+                <div class="form-group">
+                    <label>Ciudad</label>
+                    <input type="text" id="edit-program-city" disabled>
+                </div>
+                
+                <div class="form-group">
+                    <label>Estado</label>
+                    <select id="edit-program-status">
+                        <option value="pending">Pendiente</option>
+                        <option value="considering">Considerando</option>
+                        <option value="interested">Interesado</option>
+                        <option value="applying">Aplicando</option>
+                        <option value="discarded">Descartado</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>Calificación</label>
+                    <div class="rating-input">
+                        <div class="star-rating" id="edit-program-rating">
+                            <span class="star" data-value="1">★</span>
+                            <span class="star" data-value="2">★</span>
+                            <span class="star" data-value="3">★</span>
+                            <span class="star" data-value="4">★</span>
+                            <span class="star" data-value="5">★</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>URL</label>
+                    <input type="text" id="edit-program-url">
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" id="save-program-changes" class="save-btn">Guardar Cambios</button>
+                    <button type="button" id="cancel-program-edit" class="cancel-btn">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

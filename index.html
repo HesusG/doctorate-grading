@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctorados - España</title>
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Map Dependencies -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
+    
+    <!-- SQLite Database Integration -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/sql-wasm.js"></script>
+    
+    <!-- Future Dependencies (for when we add other tabs) -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.dataTables.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Header Component -->
+        <div id="header-component"></div>
+        
+        <!-- Heart Rain Container -->
+        <div class="heart-rain-container" id="heartRainContainer"></div>
+
+        <!-- Tabs Component -->
+        <div id="tabs-component"></div>
+
+        <!-- Main Content Area -->
+        <div class="content">
+            <!-- Filters Component (now inside content) -->
+            <div id="filters-component"></div>
+            
+            <!-- Views will be loaded dynamically -->
+            <div id="views-container"></div>
+        </div>
+        
+        <!-- Modals will be loaded dynamically -->
+        <div id="modals-container"></div>
+    </div>
+
+    <!-- Load and initialize app -->
+    <script type="module">
+        import DoctorateApp from './js/main.js';
+        
+        // Initialize the application
+        window.app = new DoctorateApp();
+    </script>
+</body>
+</html>

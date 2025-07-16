@@ -1,0 +1,60 @@
+<div id="ciudades-view" class="view">
+    <div class="white-content-container">
+        <div class="ciudades-header">
+            <h2>Análisis de Ciudades</h2>
+            <p>Descubre las mejores ciudades para tu doctorado</p>
+        </div>
+        
+        <div class="ciudades-dashboard">
+            <div class="dashboard-section">
+                <h3>Métricas Generales</h3>
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-icon">🏙️</div>
+                        <div class="metric-content">
+                            <div class="metric-number" id="totalCities">0</div>
+                            <div class="metric-label">Ciudades</div>
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-icon">🎓</div>
+                        <div class="metric-content">
+                            <div class="metric-number" id="avgUniversitiesPerCity">0.0</div>
+                            <div class="metric-label">Universidades por Ciudad</div>
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-icon">⭐</div>
+                        <div class="metric-content">
+                            <div class="metric-number" id="topRatedCity">-</div>
+                            <div class="metric-label">Ciudad Mejor Calificada</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="dashboard-section">
+                <h3>Ranking de Ciudades</h3>
+                <div class="cities-ranking" id="citiesRanking">
+                    <!-- City ranking items will be generated here -->
+                </div>
+            </div>
+            
+            <div class="dashboard-section">
+                <h3>Distribución Geográfica</h3>
+                <div class="geo-stats">
+                    <div class="country-stat">
+                        <span class="country-flag">🇪🇸</span>
+                        <span class="country-name">España</span>
+                        <span class="country-count" id="spainCount">0 ciudades</span>
+                    </div>
+                    <div class="country-stat">
+                        <span class="country-flag">🇵🇹</span>
+                        <span class="country-name">Portugal</span>
+                        <span class="country-count" id="portugalCount">0 ciudades</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

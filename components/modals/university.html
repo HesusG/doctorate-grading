@@ -1,0 +1,641 @@
+<div class="university-modal" id="universityModal">
+    <div class="university-modal-content">
+        <div class="university-modal-header">
+            <button class="back-btn" id="backToMapBtn">← Volver al mapa</button>
+            <h2 id="universityTitle">Universidad</h2>
+            <div class="navigation-controls">
+                <button class="nav-btn prev-btn" id="prevProgramBtn" disabled>◀ Anterior</button>
+                <span id="programCounter">1 / 1</span>
+                <button class="nav-btn next-btn" id="nextProgramBtn">Siguiente ▶</button>
+            </div>
+        </div>
+        <div class="university-modal-body">
+            <div class="university-info">
+                <div class="university-location">
+                    <span id="universityCity">Ciudad, País</span>
+                </div>
+            </div>
+            
+            <!-- Modal Sub-tabs -->
+            <div class="modal-tabs">
+                <button class="modal-tab active" data-modal-tab="programa">📚 Programa</button>
+                <button class="modal-tab" data-modal-tab="universidad">🏛️ Universidad</button>
+            </div>
+            
+            <!-- Program Title Section (below tabs, full width) -->
+            <div class="program-title-section">
+                <div class="program-title-left">
+                    <h3 id="programName">Nombre del Programa</h3>
+                </div>
+                <div class="program-title-right">
+                    <span class="program-status" id="programStatus">Estado</span>
+                    <button class="favorite-btn" id="favoriteBtn" data-record-id="" title="Marcar como favorito">
+                        <i class="far fa-heart"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Program Tab Content -->
+            <div class="modal-tab-content active" id="programa-tab">
+                <div class="program-details" id="programDetails">
+                <div class="program-content">
+                    <div class="program-section">
+                        <h4>Información General</h4>
+                        <div class="program-section-content">
+                            <div class="program-info-item">
+                                <span class="label">URL:</span>
+                                <a href="#" target="_blank" id="programUrl">Enlace al programa</a>
+                            </div>
+                            <div class="program-info-item">
+                                <span class="label">Calificación:</span>
+                                <div class="criteria-rating-inline">
+                                    <div class="criteria-stars" id="program-overall-rating-stars">
+                                        <span class="criteria-star" data-criterion="program_overall_rating" data-value="1">★</span>
+                                        <span class="criteria-star" data-criterion="program_overall_rating" data-value="2">★</span>
+                                        <span class="criteria-star" data-criterion="program_overall_rating" data-value="3">★</span>
+                                        <span class="criteria-star" data-criterion="program_overall_rating" data-value="4">★</span>
+                                        <span class="criteria-star" data-criterion="program_overall_rating" data-value="5">★</span>
+                                    </div>
+                                    <span class="program-status" id="programRatingValue" style="background-color: #6c757d;">Sin calificar</span>
+                                </div>
+                            </div>
+                            <div class="program-info-item" id="updatedDateSection">
+                                <span class="label">Última actualización:</span>
+                                <span class="value updated-date" id="updatedDate">-</span>
+                            </div>
+                            <div class="program-info-item" id="ratingCommentSection" style="display: none;">
+                                <span class="label">Comentario:</span>
+                                <div class="rating-comment" id="ratingComment"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="program-section">
+                        <h4>Líneas de Investigación</h4>
+                        <div class="program-section-content" id="researchLines">
+                            <ul id="researchLinesList">
+                                <li>Información no disponible</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="program-section program-criteria-section">
+                        <h4>Criterios Específicos</h4>
+                        <div class="program-section-content program-criteria" id="programCriteria">
+                            <div class="criteria-avg-summary">
+                                <div class="criteria-row criteria-row-avg">
+                                    <span class="label">Promedio:</span>
+                                    <span class="value criteria-value criteria-avg" id="criteria-average-value">0.0/5</span>
+                                </div>
+                            </div>
+                            
+                            <div class="criteria-block">
+                                <div class="criteria-header">
+                                    <h5 data-criteria="personal_relevance">1. Relevancia Personal y Afinidad Temática</h5>
+                                </div>
+                                <div class="criteria-rating-inline">
+                                    <div class="criteria-stars" id="view-criteria-personal-relevance-stars">
+                                        <span class="criteria-star" data-criterion="personal_relevance" data-value="1">★</span>
+                                        <span class="criteria-star" data-criterion="personal_relevance" data-value="2">★</span>
+                                        <span class="criteria-star" data-criterion="personal_relevance" data-value="3">★</span>
+                                        <span class="criteria-star" data-criterion="personal_relevance" data-value="4">★</span>
+                                        <span class="criteria-star" data-criterion="personal_relevance" data-value="5">★</span>
+                                    </div>
+                                </div>
+                                <div class="criteria-levels">
+                                    <div class="criteria-level-item" data-value="1">
+                                        <div class="level-number">1</div>
+                                        <div class="level-desc">Las líneas están en un área general, pero no conectan con tu tema.</div>
+                                    </div>
+                                    <div class="criteria-level-item" data-value="2">
+                                        <div class="level-number">2</div>
+                                        <div class="level-desc">Solo hay una línea lejana a tu interés.</div>
+                                    </div>
+                                    <div class="criteria-level-item" data-value="3">
+                                        <div class="level-number">3</div>
+                                        <div class="level-desc">Una o dos líneas son parcialmente compatibles.</div>
+                                    </div>
+                                    <div class="criteria-level-item" data-value="4">
+                                        <div class="level-number">4</div>
+                                        <div class="level-desc">Una línea muy alineada y otras relacionadas.</div>
+                                    </div>
+                                    <div class="criteria-level-item" data-value="5">
+                                        <div class="level-number">5</div>
+                                        <div class="level-desc">Varias líneas directamente relacionadas con tu tema.</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="criteria-block">
+                                <div class="criteria-header">
+                                    <h5 data-criteria="information_clarity">2. Claridad y Especificidad de las Líneas de Investigación</h5>
+                                </div>
+                                <div class="criteria-rating-inline">
+                                    <div class="criteria-stars" id="view-criteria-information-clarity-stars">
+                                        <span class="criteria-star" data-criterion="information_clarity" data-value="1">★</span>
+                                        <span class="criteria-star" data-criterion="information_clarity" data-value="2">★</span>
+                                        <span class="criteria-star" data-criterion="information_clarity" data-value="3">★</span>
+                                        <span class="criteria-star" data-criterion="information_clarity" data-value="4">★</span>
+                                        <span class="criteria-star" data-criterion="information_clarity" data-value="5">★</span>
+                                    </div>
+                                </div>
+                                <div class="criteria-levels">
+                                    <div class="criteria-level-item" data-value="1">
+                                        <div class="level-number">1</div>
+                                        <div class="level-desc">Solo hay títulos genéricos.</div>
+                                    </div>
+                                    <div class="criteria-level-item" data-value="2">
+                                        <div class="level-number">2</div>
+                                        <div class="level-desc">Descripciones breves que no aclaran bien los temas.</div>
+                                    </div>
+                                    <div class="criteria-level-item" data-value="3">
+                                        <div class="level-number">3</div>
+                                        <div class="level-desc">Las líneas están explicadas pero sin ejemplos o desglose.</div>
+                                    </div>
+                                    <div class="criteria-level-item" data-value="4">
+                                        <div class="level-number">4</div>
+                                        <div class="level-desc">Hay subtemas o subdivisiones, aunque sin ejemplos concretos.</div>
+                                    </div>
+                                    <div class="criteria-level-item" data-value="5">
+                                        <div class="level-number">5</div>
+                                        <div class="level-desc">Las líneas incluyen subtemas, proyectos pasados o actuales, y vinculación con grupos reales.</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="criteria-block">
+                                <div class="criteria-header">
+                                    <h5 data-criteria="research_environment">3. Entorno del Programa (Cultura, Mentoría y Bienestar Estudiantil)</h5>
+                                </div>
+                                <div class="criteria-rating-inline">
+                                    <div class="criteria-stars" id="view-criteria-research-environment-stars">
+                                        <span class="criteria-star" data-criterion="research_environment" data-value="1">★</span>
+                                        <span class="criteria-star" data-criterion="research_environment" data-value="2">★</span>
+                                        <span class="criteria-star" data-criterion="research_environment" data-value="3">★</span>
+                                        <span class="criteria-star" data-criterion="research_environment" data-value="4">★</span>
+                                        <span class="criteria-star" data-criterion="research_environment" data-value="5">★</span>
+                                    </div>
+                                </div>
+                                <div class="criteria-levels">
+                                    <div class="criteria-level-item" data-value="1">
+                                        <div class="level-number">1</div>
+                                        <div class="level-desc">Ambiente tóxico o negativo frecuente.</div>
+                                    </div>
+                                    <div class="criteria-level-item" data-value="2">
+                                        <div class="level-number">2</div>
+                                        <div class="level-desc">Apoyo inconsistente; problemas con tutores.</div>
+                                    </div>
+                                    <div class="criteria-level-item" data-value="3">
+                                        <div class="level-number">3</div>
+                                        <div class="level-desc">Entorno funcional pero con experiencias mixtas.</div>
+                                    </div>
+                                    <div class="criteria-level-item" data-value="4">
+                                        <div class="level-number">4</div>
+                                        <div class="level-desc">Opiniones mayormente positivas sobre mentores y comunidad.</div>
+                                    </div>
+                                    <div class="criteria-level-item" data-value="5">
+                                        <div class="level-number">5</div>
+                                        <div class="level-desc">Comunidad activa, apoyo cercano, y bienestar destacado.</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="criteria-block">
+                                <div class="criteria-header">
+                                    <h5 data-criteria="infrastructure">4. Infraestructura Académica y Recursos</h5>
+                                </div>
+                                <div class="criteria-rating-inline">
+                                    <div class="criteria-stars" id="view-criteria-infrastructure-stars">
+                                        <span class="criteria-star" data-criterion="infrastructure" data-value="1">★</span>
+                                        <span class="criteria-star" data-criterion="infrastructure" data-value="2">★</span>
+                                        <span class="criteria-star" data-criterion="infrastructure" data-value="3">★</span>
+                                        <span class="criteria-star" data-criterion="infrastructure" data-value="4">★</span>
+                                        <span class="criteria-star" data-criterion="infrastructure" data-value="5">★</span>
+                                    </div>
+                                </div>
+                                <div class="criteria-levels">
+                                    <div class="criteria-level-item" data-value="1">
+                                        <div class="level-number">1</div>
+                                        <div class="level-desc">No hay imágenes, ni menciones de laboratorios o bibliotecas. Fotos muestran deterioro.</div>
+                                    </div>
+                                    <div class="criteria-level-item" data-value="2">
+                                        <div class="level-number">2</div>
+                                        <div class="level-desc">Hay mención de aulas y bibliotecas, pero sin detalle sobre software o accesibilidad.</div>
+                                    </div>
+                                    <div class="criteria-level-item" data-value="3">
+                                        <div class="level-number">3</div>
+                                        <div class="level-desc">Fotos y reseñas muestran instalaciones razonables y uso de alguna plataforma digital.</div>
+                                    </div>
+                                    <div class="criteria-level-item" data-value="4">
+                                        <div class="level-number">4</div>
+                                        <div class="level-desc">Laboratorios, software académico y bibliotecas digitales disponibles y visibles.</div>
+                                    </div>
+                                    <div class="criteria-level-item" data-value="5">
+                                        <div class="level-number">5</div>
+                                        <div class="level-desc">Infraestructura moderna, especializada, accesible, con coworking, bases de datos remotas, y aulas inteligentes.</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="criteria-block">
+                                <div class="criteria-header">
+                                    <h5 data-criteria="training_activities">5. Enfoque y Flexibilidad de las Actividades Formativas</h5>
+                                </div>
+                                <div class="criteria-rating-inline">
+                                    <div class="criteria-stars" id="view-criteria-training-activities-stars">
+                                        <span class="criteria-star" data-criterion="training_activities" data-value="1">★</span>
+                                        <span class="criteria-star" data-criterion="training_activities" data-value="2">★</span>
+                                        <span class="criteria-star" data-criterion="training_activities" data-value="3">★</span>
+                                        <span class="criteria-star" data-criterion="training_activities" data-value="4">★</span>
+                                        <span class="criteria-star" data-criterion="training_activities" data-value="5">★</span>
+                                    </div>
+                                </div>
+                                <div class="criteria-levels">
+                                    <div class="criteria-level-item" data-value="1">
+                                        <div class="level-number">1</div>
+                                        <div class="level-desc">No hay formación adicional o es rígida</div>
+                                    </div>
+                                    <div class="criteria-level-item" data-value="2">
+                                        <div class="level-number">2</div>
+                                        <div class="level-desc">Solo actividades fijas (seminarios, publicaciones), sin personalización</div>
+                                    </div>
+                                    <div class="criteria-level-item" data-value="3">
+                                        <div class="level-number">3</div>
+                                        <div class="level-desc">Algunas opciones de personalización, combinando formación específica y transversal</div>
+                                    </div>
+                                    <div class="criteria-level-item" data-value="4">
+                                        <div class="level-number">4</div>
+                                        <div class="level-desc">Plan estructurado y flexible con valoración diferenciada según tipo de actividad</div>
+                                    </div>
+                                    <div class="criteria-level-item" data-value="5">
+                                        <div class="level-number">5</div>
+                                        <div class="level-desc">Itinerario completamente personalizable, con movilidad, cotutelas, proyectos externos, y validación formal</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Temporarily hidden - will move to University tab -->
+                    <div class="program-section" style="display: none;">
+                        <h4>🤖 Métricas del Programa IA</h4>
+                        <div class="program-section-content university-metrics" id="universityMetrics">
+                            <div class="metric-row">
+                                <span class="label">Innovación:</span>
+                                <span class="value" id="programInnovation">N/A</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="label">Interdisciplinariedad:</span>
+                                <span class="value" id="programInterdisciplinarity">N/A</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="label">Impacto:</span>
+                                <span class="value" id="programImpact">N/A</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="label">Internacional:</span>
+                                <span class="value" id="programInternational">N/A</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="label">Aplicabilidad:</span>
+                                <span class="value" id="programApplicability">N/A</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="program-section" style="display: none;">
+                        <h4>🏙️ Información de la Ciudad</h4>
+                        <div class="program-section-content city-metrics" id="cityMetrics">
+                            <div class="metric-row">
+                                <span class="label">Costo de Vida:</span>
+                                <span class="value" id="cityCostOfLiving">N/A</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="label">Calidad del Aire:</span>
+                                <span class="value" id="cityAirQuality">N/A</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="label">Calidad del Transporte:</span>
+                                <span class="value" id="cityTransportQuality">N/A</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="label">Calidad Médica:</span>
+                                <span class="value" id="cityMedicalQuality">N/A</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="label">Distancia a Madrid:</span>
+                                <span class="value" id="cityDistanceMadrid">N/A</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="label">Clima:</span>
+                                <span class="value" id="cityWeather">N/A</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Temporarily hidden - will move to University tab -->
+                    <div class="program-section explanation-section" style="display: none;">
+                        <h4>Explicación Detallada</h4>
+                        <div class="program-section-content" id="detailedExplanation">
+                            <div id="universityExplanation">
+                                <h5>🏛️ Universidad</h5>
+                                <div class="university-details" id="universityDetailsContent">
+                                    <div class="university-basic-info">
+                                        <div class="uni-info-item">
+                                            <span class="label">Fundada:</span>
+                                            <span id="universityFounded">N/A</span>
+                                        </div>
+                                        <div class="uni-info-item">
+                                            <span class="label">Website:</span>
+                                            <a href="#" target="_blank" id="universityWebsite" style="display: none;">Ver sitio web</a>
+                                            <span id="universityWebsiteNA">N/A</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="explanation-block" id="universityExplanationContent">
+                                    <p>No hay explicaciones disponibles sobre la universidad.</p>
+                                </div>
+                            </div>
+                            <div id="cityExplanation">
+                                <h5>Ciudad</h5>
+                                <div class="explanation-block" id="cityExplanationContent">
+                                    <p>No hay explicaciones disponibles sobre la ciudad.</p>
+                                </div>
+                            </div>
+                            <div id="aiAnalysisMetadata">
+                                <h5>🤖 Información del Análisis de IA</h5>
+                                <div class="ai-metadata">
+                                    <div class="metadata-item">
+                                        <span class="label">Último análisis:</span>
+                                        <span id="lastEnrichment">N/A</span>
+                                    </div>
+                                    <div class="metadata-item">
+                                        <span class="label">Versión:</span>
+                                        <span id="enrichmentVersion">N/A</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+            
+            <!-- University Tab Content -->
+            <div class="modal-tab-content" id="universidad-tab">
+                <div class="program-details">
+                    <div class="program-section">
+                        <h4>🤖 Métricas del Programa IA</h4>
+                        <div class="program-section-content university-metrics" id="universityMetricsTab">
+                            <div class="metric-row">
+                                <span class="label">Innovación:</span>
+                                <span class="value" id="uniInnovacionTab">N/A</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="label">Interdisciplinariedad:</span>
+                                <span class="value" id="uniInterdisciplinariedadTab">N/A</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="label">Impacto:</span>
+                                <span class="value" id="uniImpactoTab">N/A</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="label">Internacional:</span>
+                                <span class="value" id="uniInternacionalTab">N/A</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="label">Aplicabilidad:</span>
+                                <span class="value" id="uniAplicabilidadTab">N/A</span>
+                            </div>
+                        </div>
+                        <div class="program-section-content">
+                            <h5>🏛️ Resumen de la Universidad</h5>
+                            <div class="explanation-block" id="universitySummaryContent">
+                                <p>No hay información disponible sobre la universidad.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="program-section">
+                        <h4>🤖 Información de la Ciudad IA</h4>
+                        <div class="program-section-content city-metrics" id="cityMetricsTab">
+                            <div class="metric-row">
+                                <span class="label">Costo de Vida:</span>
+                                <span class="value" id="aiCostOfLivingTab">N/A</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="label">Calidad Médica:</span>
+                                <span class="value" id="aiMedicalQualityTab">N/A</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="label">Calidad del Transporte:</span>
+                                <span class="value" id="aiTransportQualityTab">N/A</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="label">Calidad del Aire:</span>
+                                <span class="value" id="aiAirQualityTab">N/A</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="label">📍 Distancia a Madrid:</span>
+                                <span class="value" id="distanciaMadridTab">N/A</span>
+                            </div>
+                        </div>
+                        <div class="program-section-content">
+                            <h5>🏙️ Resumen de la Ciudad</h5>
+                            <div class="explanation-block" id="citySummaryContent">
+                                <p>No hay información disponible sobre la ciudad.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="program-section program-criteria-section">
+                        <h4>🏙️ Criterios de la Ciudad</h4>
+                        <div class="program-section-content program-criteria" id="cityCriteriaSection">
+                            
+                            <div class="criteria-block">
+                                <div class="criteria-header">
+                                    <h5 data-criteria="cost_effectiveness">1. Efectividad de Costos</h5>
+                                </div>
+                                <div class="criteria-rating-inline">
+                                    <div class="criteria-stars" id="city-criteria-cost-effectiveness-stars">
+                                        <span class="criteria-star" data-criterion="cost_effectiveness" data-value="1">★</span>
+                                        <span class="criteria-star" data-criterion="cost_effectiveness" data-value="2">★</span>
+                                        <span class="criteria-star" data-criterion="cost_effectiveness" data-value="3">★</span>
+                                        <span class="criteria-star" data-criterion="cost_effectiveness" data-value="4">★</span>
+                                        <span class="criteria-star" data-criterion="cost_effectiveness" data-value="5">★</span>
+                                    </div>
+                                </div>
+                                <div class="criteria-levels">
+                                    <div class="criteria-level-item" data-value="1">
+                                        <div class="level-number">1</div>
+                                        <div class="level-desc">Muy caro, significativamente por encima de los costos promedio.</div>
+                                    </div>
+                                    <div class="criteria-level-item" data-value="2">
+                                        <div class="level-number">2</div>
+                                        <div class="level-desc">Caro, por encima de los costos promedio.</div>
+                                    </div>
+                                    <div class="criteria-level-item" data-value="3">
+                                        <div class="level-number">3</div>
+                                        <div class="level-desc">Costos moderados, alrededor del promedio.</div>
+                                    </div>
+                                    <div class="criteria-level-item" data-value="4">
+                                        <div class="level-number">4</div>
+                                        <div class="level-desc">Asequible, por debajo de los costos promedio.</div>
+                                    </div>
+                                    <div class="criteria-level-item" data-value="5">
+                                        <div class="level-number">5</div>
+                                        <div class="level-desc">Muy asequible, significativamente por debajo de los costos promedio.</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="criteria-block">
+                                <div class="criteria-header">
+                                    <h5 data-criteria="medical_services">2. Servicios Médicos</h5>
+                                </div>
+                                <div class="criteria-rating-inline">
+                                    <div class="criteria-stars" id="city-criteria-medical-services-stars">
+                                        <span class="criteria-star" data-criterion="medical_services" data-value="1">★</span>
+                                        <span class="criteria-star" data-criterion="medical_services" data-value="2">★</span>
+                                        <span class="criteria-star" data-criterion="medical_services" data-value="3">★</span>
+                                        <span class="criteria-star" data-criterion="medical_services" data-value="4">★</span>
+                                        <span class="criteria-star" data-criterion="medical_services" data-value="5">★</span>
+                                    </div>
+                                </div>
+                                <div class="criteria-levels">
+                                    <div class="criteria-level-item" data-value="1">
+                                        <div class="level-number">1</div>
+                                        <div class="level-desc">Servicios médicos deficientes, acceso limitado.</div>
+                                    </div>
+                                    <div class="criteria-level-item" data-value="2">
+                                        <div class="level-number">2</div>
+                                        <div class="level-desc">Servicios médicos básicos disponibles.</div>
+                                    </div>
+                                    <div class="criteria-level-item" data-value="3">
+                                        <div class="level-number">3</div>
+                                        <div class="level-desc">Buenos servicios médicos, cobertura adecuada.</div>
+                                    </div>
+                                    <div class="criteria-level-item" data-value="4">
+                                        <div class="level-number">4</div>
+                                        <div class="level-desc">Muy buenos servicios médicos, atención integral.</div>
+                                    </div>
+                                    <div class="criteria-level-item" data-value="5">
+                                        <div class="level-number">5</div>
+                                        <div class="level-desc">Excelentes servicios médicos, atención de clase mundial.</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="criteria-block">
+                                <div class="criteria-header">
+                                    <h5 data-criteria="transportation">3. Transporte</h5>
+                                </div>
+                                <div class="criteria-rating-inline">
+                                    <div class="criteria-stars" id="city-criteria-transportation-stars">
+                                        <span class="criteria-star" data-criterion="transportation" data-value="1">★</span>
+                                        <span class="criteria-star" data-criterion="transportation" data-value="2">★</span>
+                                        <span class="criteria-star" data-criterion="transportation" data-value="3">★</span>
+                                        <span class="criteria-star" data-criterion="transportation" data-value="4">★</span>
+                                        <span class="criteria-star" data-criterion="transportation" data-value="5">★</span>
+                                    </div>
+                                </div>
+                                <div class="criteria-levels">
+                                    <div class="criteria-level-item" data-value="1">
+                                        <div class="level-number">1</div>
+                                        <div class="level-desc">Transporte deficiente, transporte público limitado.</div>
+                                    </div>
+                                    <div class="criteria-level-item" data-value="2">
+                                        <div class="level-number">2</div>
+                                        <div class="level-desc">Transporte básico disponible.</div>
+                                    </div>
+                                    <div class="criteria-level-item" data-value="3">
+                                        <div class="level-number">3</div>
+                                        <div class="level-desc">Buen sistema de transporte, servicio confiable.</div>
+                                    </div>
+                                    <div class="criteria-level-item" data-value="4">
+                                        <div class="level-number">4</div>
+                                        <div class="level-desc">Muy buen transporte, red extensa.</div>
+                                    </div>
+                                    <div class="criteria-level-item" data-value="5">
+                                        <div class="level-number">5</div>
+                                        <div class="level-desc">Excelente transporte, moderno y eficiente.</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="criteria-block">
+                                <div class="criteria-header">
+                                    <h5 data-criteria="air_quality">4. Calidad del Aire</h5>
+                                </div>
+                                <div class="criteria-rating-inline">
+                                    <div class="criteria-stars" id="city-criteria-air-quality-stars">
+                                        <span class="criteria-star" data-criterion="air_quality" data-value="1">★</span>
+                                        <span class="criteria-star" data-criterion="air_quality" data-value="2">★</span>
+                                        <span class="criteria-star" data-criterion="air_quality" data-value="3">★</span>
+                                        <span class="criteria-star" data-criterion="air_quality" data-value="4">★</span>
+                                        <span class="criteria-star" data-criterion="air_quality" data-value="5">★</span>
+                                    </div>
+                                </div>
+                                <div class="criteria-levels">
+                                    <div class="criteria-level-item" data-value="1">
+                                        <div class="level-number">1</div>
+                                        <div class="level-desc">Mala calidad del aire, altos niveles de contaminación.</div>
+                                    </div>
+                                    <div class="criteria-level-item" data-value="2">
+                                        <div class="level-number">2</div>
+                                        <div class="level-desc">Calidad del aire por debajo del promedio, algo de contaminación.</div>
+                                    </div>
+                                    <div class="criteria-level-item" data-value="3">
+                                        <div class="level-number">3</div>
+                                        <div class="level-desc">Calidad del aire promedio, contaminación moderada.</div>
+                                    </div>
+                                    <div class="criteria-level-item" data-value="4">
+                                        <div class="level-number">4</div>
+                                        <div class="level-desc">Buena calidad del aire, bajos niveles de contaminación.</div>
+                                    </div>
+                                    <div class="criteria-level-item" data-value="5">
+                                        <div class="level-number">5</div>
+                                        <div class="level-desc">Excelente calidad del aire, aire muy limpio.</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="criteria-block">
+                                <div class="criteria-header">
+                                    <h5 data-criteria="weather">5. Clima</h5>
+                                </div>
+                                <div class="criteria-rating-inline">
+                                    <div class="criteria-stars" id="city-criteria-weather-stars">
+                                        <span class="criteria-star" data-criterion="weather" data-value="1">★</span>
+                                        <span class="criteria-star" data-criterion="weather" data-value="2">★</span>
+                                        <span class="criteria-star" data-criterion="weather" data-value="3">★</span>
+                                        <span class="criteria-star" data-criterion="weather" data-value="4">★</span>
+                                        <span class="criteria-star" data-criterion="weather" data-value="5">★</span>
+                                    </div>
+                                </div>
+                                <div class="criteria-levels">
+                                    <div class="criteria-level-item" data-value="1">
+                                        <div class="level-number">1</div>
+                                        <div class="level-desc">Clima muy adverso, condiciones extremas.</div>
+                                    </div>
+                                    <div class="criteria-level-item" data-value="2">
+                                        <div class="level-number">2</div>
+                                        <div class="level-desc">Clima desafiante, extremos frecuentes.</div>
+                                    </div>
+                                    <div class="criteria-level-item" data-value="3">
+                                        <div class="level-number">3</div>
+                                        <div class="level-desc">Clima moderado, variaciones estacionales.</div>
+                                    </div>
+                                    <div class="criteria-level-item" data-value="4">
+                                        <div class="level-number">4</div>
+                                        <div class="level-desc">Clima agradable, clima templado.</div>
+                                    </div>
+                                    <div class="criteria-level-item" data-value="5">
+                                        <div class="level-number">5</div>
+                                        <div class="level-desc">Excelente clima, clima ideal durante todo el año.</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,25 @@
+{
+  "startTime": "2025-07-15T23:15:22.690Z",
+  "endTime": null,
+  "totalRecords": 190,
+  "successfulMigrations": 190,
+  "errors": [],
+  "warnings": [
+    "Invalid latitude: undefined (index: 5)",
+    "Invalid longitude: undefined (index: 5)",
+    "Invalid latitude: undefined (index: 115)",
+    "Invalid longitude: undefined (index: 115)"
+  ],
+  "statistics": {
+    "countries": 2,
+    "cities": 41,
+    "universities": 54,
+    "programs": 190,
+    "aiUniversitySummaries": 54,
+    "aiCitySummaries": 41
+  },
+  "duration": -1752621322690,
+  "timestamp": "2025-07-15T23:15:23.697Z",
+  "durationMs": -1752621322690,
+  "durationFormatted": "-1752621323s"
+}
