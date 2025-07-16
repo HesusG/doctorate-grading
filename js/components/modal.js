@@ -788,10 +788,17 @@ export class ModalComponent {
 
     setElementValue(elementId, value) {
         const element = document.getElementById(elementId);
+        console.log(`🔍 DEBUG: setElementValue('${elementId}', ${value})`);
+        console.log(`🔍 DEBUG: Element found:`, !!element);
+        
         if (element && value !== undefined && value !== null) {
             element.innerHTML = `<span class="metric-value">${value}/10</span>`;
+            console.log(`🔍 DEBUG: Set ${elementId} to ${value}/10`);
         } else if (element) {
             element.innerHTML = '<span class="metric-value no-data">N/A</span>';
+            console.log(`🔍 DEBUG: Set ${elementId} to N/A (value was ${value})`);
+        } else {
+            console.log(`🔍 DEBUG: Element ${elementId} not found!`);
         }
     }
 
@@ -1025,6 +1032,11 @@ export class ModalComponent {
     updateUniversityMetrics(program) {
         const metrics = program.ai_analysis?.program_metrics || {};
         
+        console.log('🔍 DEBUG: updateUniversityMetrics called');
+        console.log('🔍 DEBUG: program.ai_analysis:', program.ai_analysis);
+        console.log('🔍 DEBUG: metrics object:', metrics);
+        console.log('🔍 DEBUG: innovacion value:', metrics.innovacion);
+        
         // Update program AI metrics in University tab
         this.setElementValue('uniInnovacionTab', metrics.innovacion);
         this.setElementValue('uniInterdisciplinariedadTab', metrics.interdisciplinariedad);
@@ -1067,6 +1079,11 @@ export class ModalComponent {
      */
     updateCityAIMetrics(program) {
         const cityMetrics = program.ai_analysis?.city_metrics || {};
+        
+        console.log('🔍 DEBUG: updateCityAIMetrics called');
+        console.log('🔍 DEBUG: program.ai_analysis:', program.ai_analysis);
+        console.log('🔍 DEBUG: cityMetrics object:', cityMetrics);
+        console.log('🔍 DEBUG: cost_of_living value:', cityMetrics.cost_of_living);
         
         // Update city AI metrics
         this.setElementValue('aiCostOfLivingTab', cityMetrics.cost_of_living);
