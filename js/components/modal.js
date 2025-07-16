@@ -906,6 +906,11 @@ export class ModalComponent {
                 // Refresh the modal content
                 this.updateUniversityModalContent();
                 
+                // Notify save manager of data change
+                if (this.app.saveManager) {
+                    this.app.saveManager.onDataChange();
+                }
+                
                 console.log(`✅ Updated ${criterion} to ${value} for program:`, currentProgram.program.name);
             } else {
                 throw new Error('Program not found in database');
@@ -1143,6 +1148,11 @@ export class ModalComponent {
                     // Update UI
                     this.updateFavoriteButtonUI(newStatus);
                     
+                    // Notify save manager of data change
+                    if (this.app.saveManager) {
+                        this.app.saveManager.onDataChange();
+                    }
+                    
                     console.log(`✅ Favorite toggled for program: ${currentProgram.program.name}`);
                 } else {
                     throw new Error('Program not found in database');
@@ -1197,6 +1207,11 @@ export class ModalComponent {
                         }
                         
                         console.log(`✅ Favorite toggled from map for program: ${program.program.name}`);
+                        
+                        // Notify save manager of data change
+                        if (this.app.saveManager) {
+                            this.app.saveManager.onDataChange();
+                        }
                         
                         // Refresh the map popup
                         // Note: This will require a map refresh or popup update

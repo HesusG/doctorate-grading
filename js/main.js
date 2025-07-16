@@ -4,6 +4,7 @@ import { UniversityService } from './database/UniversityService.js';
 import { CityService } from './database/CityService.js';
 import { CountryService } from './database/CountryService.js';
 import { SQLDataUtils } from './utils/SQLDataUtils.js';
+import { SQLiteSaveManager } from './utils/SQLiteSaveManager.js';
 import { MapComponent } from './components/map.js';
 import { ModalComponent } from './components/modal.js';
 import { componentLoader } from './component-loader.js';
@@ -21,6 +22,7 @@ class DoctorateApp {
         // Initialize components
         this.mapComponent = null;
         this.modalComponent = new ModalComponent(this);
+        this.saveManager = null;
         this.componentLoader = componentLoader;
         this.map = null;
         this.currentView = 'mapa';
@@ -75,6 +77,10 @@ class DoctorateApp {
             
             // Initialize map component with SQL data utils
             this.mapComponent = new MapComponent(this.dataUtils);
+            
+            // Initialize save manager
+            this.saveManager = new SQLiteSaveManager(this.databaseService);
+            await this.saveManager.initialize();
             
             console.log('✅ SQLite database and services initialized');
         } catch (error) {
