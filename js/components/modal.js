@@ -637,62 +637,14 @@ export class ModalComponent {
         if (!this.currentUniversityData) return;
         
         const currentProgram = this.currentUniversityData.programs[this.currentProgramIndex];
-        const city = this.currentUniversityData.city;
         
-        console.log('Updating university tab with data:', currentProgram);
-        
-        // Update AI Program Metrics in university tab
-        this.updateProgramMetricsInTab(currentProgram);
-        
-        // Update city information in university tab
-        this.updateCityInformationInTab(city, currentProgram);
-        
-        // Update city criteria
-        this.updateCityCriteria(city);
+        // Use the new consolidated methods
+        this.updateUniversityMetrics(currentProgram);
+        this.updateCityDetails(currentProgram);
+        this.updateCityAIMetrics(currentProgram);
+        this.updateCityCriteria(currentProgram);
     }
 
-    updateProgramMetricsInTab(program) {
-        const metrics = program.ai_analysis?.program_metrics || {};
-        
-        this.setElementValue('uniInnovacionTab', metrics.innovacion);
-        this.setElementValue('uniInterdisciplinariedadTab', metrics.interdisciplinariedad);
-        this.setElementValue('uniImpactoTab', metrics.impacto);
-        this.setElementValue('uniInternacionalTab', metrics.internacional);
-        this.setElementValue('uniAplicabilidadTab', metrics.aplicabilidad);
-    }
-
-    updateCityInformationInTab(city, program) {
-        // AI city metrics
-        const aiCityMetrics = program?.ai_analysis?.city_metrics || {};
-        
-        this.setElementValue('aiCostOfLivingTab', aiCityMetrics.cost_of_living);
-        this.setElementValue('aiMedicalQualityTab', aiCityMetrics.medical_quality);
-        this.setElementValue('aiTransportQualityTab', aiCityMetrics.transport_quality);
-        this.setElementValue('aiAirQualityTab', aiCityMetrics.air_quality);
-        
-        // Distance
-        const distance = city.distances?.madrid_km;
-        if (distance) {
-            const distanceElement = document.getElementById('distanciaMadridTab');
-            if (distanceElement) {
-                distanceElement.innerHTML = `<span class="distance-value">📍 ${distance} km</span>`;
-            }
-        }
-        
-        // City summary from AI analysis
-        const citySummary = program?.ai_analysis?.city_summary;
-        const citySummaryElement = document.getElementById('citySummaryContent');
-        if (citySummaryElement && citySummary) {
-            citySummaryElement.innerHTML = this.preprocessSummaryText(citySummary);
-        }
-        
-        // University summary from AI analysis
-        const universitySummary = program?.ai_analysis?.university_summary;
-        const universitySummaryElement = document.getElementById('universitySummaryContent');
-        if (universitySummaryElement && universitySummary) {
-            universitySummaryElement.innerHTML = this.preprocessSummaryText(universitySummary);
-        }
-    }
 
     preprocessSummaryText(text) {
         if (!text) return '<p>No hay información disponible.</p>';
@@ -788,17 +740,11 @@ export class ModalComponent {
 
     setElementValue(elementId, value) {
         const element = document.getElementById(elementId);
-        console.log(`🔍 DEBUG: setElementValue('${elementId}', ${value})`);
-        console.log(`🔍 DEBUG: Element found:`, !!element);
         
         if (element && value !== undefined && value !== null) {
             element.innerHTML = `<span class="metric-value">${value}/10</span>`;
-            console.log(`🔍 DEBUG: Set ${elementId} to ${value}/10`);
         } else if (element) {
             element.innerHTML = '<span class="metric-value no-data">N/A</span>';
-            console.log(`🔍 DEBUG: Set ${elementId} to N/A (value was ${value})`);
-        } else {
-            console.log(`🔍 DEBUG: Element ${elementId} not found!`);
         }
     }
 
@@ -1032,11 +978,6 @@ export class ModalComponent {
     updateUniversityMetrics(program) {
         const metrics = program.ai_analysis?.program_metrics || {};
         
-        console.log('🔍 DEBUG: updateUniversityMetrics called');
-        console.log('🔍 DEBUG: program.ai_analysis:', program.ai_analysis);
-        console.log('🔍 DEBUG: metrics object:', metrics);
-        console.log('🔍 DEBUG: innovacion value:', metrics.innovacion);
-        
         // Update program AI metrics in University tab
         this.setElementValue('uniInnovacionTab', metrics.innovacion);
         this.setElementValue('uniInterdisciplinariedadTab', metrics.interdisciplinariedad);
@@ -1055,6 +996,7 @@ export class ModalComponent {
         const distanceElement = document.getElementById('distanciaMadridTab');
         if (distanceElement) {
             const distance = city.distances?.madrid_km;
+            
             if (distance !== undefined && distance !== null) {
                 distanceElement.innerHTML = `<span class="metric-value">${distance} km</span>`;
             } else {
@@ -1079,11 +1021,6 @@ export class ModalComponent {
      */
     updateCityAIMetrics(program) {
         const cityMetrics = program.ai_analysis?.city_metrics || {};
-        
-        console.log('🔍 DEBUG: updateCityAIMetrics called');
-        console.log('🔍 DEBUG: program.ai_analysis:', program.ai_analysis);
-        console.log('🔍 DEBUG: cityMetrics object:', cityMetrics);
-        console.log('🔍 DEBUG: cost_of_living value:', cityMetrics.cost_of_living);
         
         // Update city AI metrics
         this.setElementValue('aiCostOfLivingTab', cityMetrics.cost_of_living);
