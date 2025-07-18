@@ -683,12 +683,12 @@ export class ModalComponent {
                     
                     // Handle bold headers like "**Population**: Description"
                     if (content.includes('**') && content.includes('**:')) {
-                        const formatted = content.replace(/\*\*(.*?)\*\*:/g, '<strong class="summary-key">$1:</strong> ');
+                        const formatted = content.replace(/\*\*(.*?)\*\*:/g, '<strong class="summary-key">$1:</strong><br>');
                         return `<div class="summary-point">📌 ${formatted}</div>`;
                     }
                     
                     // Handle regular markdown bold in bullet points
-                    const boldFormatted = content.replace(/\*\*(.*?)\*\*/g, '<strong class="summary-highlight">$1</strong>');
+                    const boldFormatted = content.replace(/\*\*(.*?)\*\*/g, '<strong class="summary-highlight">$1</strong><br>');
                     return `<div class="summary-point">📌 ${boldFormatted}</div>`;
                 }
                 
@@ -698,9 +698,9 @@ export class ModalComponent {
                     return `<h6 class="summary-section-header">🔹 ${boldFormatted}</h6>`;
                 }
                 
-                // Handle regular markdown bold - add space after
+                // Handle regular markdown bold - add line break after
                 if (line.includes('**')) {
-                    line = line.replace(/\*\*(.*?)\*\*/g, '<strong class="summary-highlight">$1</strong> ');
+                    line = line.replace(/\*\*(.*?)\*\*/g, '<strong class="summary-highlight">$1</strong><br>');
                 }
                 
                 // Handle italic text - add space after
