@@ -671,54 +671,39 @@ export class ModalComponent {
     preprocessSummaryText(text) {
         if (!text) return '<div class="no-summary-message">📋 No hay información disponible.</div>';
         
-        return text
-            .split('\n')
-            .filter(line => line.trim())
-            .map(line => {
-                line = line.trim();
-                
-                // Handle bullet points
-                if (line.startsWith('- ')) {
-                    const content = line.substring(2).trim();
-                    
-                    // Handle bold headers like "**Population**: Description"
-                    if (content.includes('**') && content.includes('**:')) {
-                        const formatted = content.replace(/\*\*(.*?)\*\*:/g, '<strong>$1:</strong><br>');
-                        return `<div class="summary-point">📌 ${formatted}</div>`;
-                    }
-                    
-                    // Handle regular markdown bold in bullet points
-                    const boldFormatted = content.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong><br>');
-                    return `<div class="summary-point">📌 ${boldFormatted}</div>`;
-                }
-                
-                // Handle section headers (lines ending with colon)
-                if (line.includes(':') && line.length < 100 && !line.includes('.')) {
-                    const boldFormatted = line.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-                    return `<h6 class="summary-section-header">🔹 ${boldFormatted}</h6>`;
-                }
-                
-                // Handle regular markdown bold - add line break after
-                if (line.includes('**')) {
-                    line = line.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong><br>');
-                }
-                
-                // Handle italic text - remove italic styling, just use normal text
-                if (line.includes('*') && !line.includes('**')) {
-                    line = line.replace(/\*(.*?)\*/g, '$1 ');
-                }
-                
-                // Handle inline code - add space after
-                if (line.includes('`')) {
-                    line = line.replace(/`(.*?)`/g, '<code class="summary-code">$1</code> ');
-                }
-                
-                // Clean up multiple spaces and ensure proper spacing
-                line = line.replace(/\s+/g, ' ').trim();
-                
-                return `<p class="summary-text">${line}</p>`;
-            })
-            .join('');
+        // Process the text as a continuous string to properly handle section breaks
+        let processedText = text.trim();
+        
+        // Handle bold patterns that should start new sections after periods
+        // This handles cases like "...text. **NewSection**: more text"
+        processedText = processedText.replace(/\. \*\*(.*?)\*\*:/g, '.</p><p class="summary-text"><strong>$1:</strong><br>');
+        
+        // Handle bold patterns at the beginning or after newlines
+        processedText = processedText.replace(/(^|\n)\*\*(.*?)\*\*:/g, '$1<strong>$2:</strong><br>');
+        
+        // Handle remaining bold patterns
+        processedText = processedText.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+        
+        // Remove italic styling - just use normal text
+        processedText = processedText.replace(/\*(.*?)\*/g, '$1');
+        
+        // Handle inline code
+        processedText = processedText.replace(/`(.*?)`/g, '<code class="summary-code">$1</code>');
+        
+        // Clean up multiple spaces and normalize whitespace
+        processedText = processedText.replace(/\s+/g, ' ').trim();
+        
+        // If the text doesn't start with a paragraph tag, wrap it
+        if (!processedText.startsWith('<p')) {
+            processedText = `<p class="summary-text">${processedText}`;
+        }
+        
+        // If the text doesn't end with a closing paragraph tag, add it
+        if (!processedText.endsWith('</p>')) {
+            processedText = `${processedText}</p>`;
+        }
+        
+        return processedText;
     }
 
     updateCityCriteria(city) {
