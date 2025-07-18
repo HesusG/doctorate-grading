@@ -603,7 +603,7 @@ export class ModalComponent {
     }
 
     switchModalTab(tabName) {
-        console.log('Switching to tab:', tabName);
+        console.log('🔄 Switching to tab:', tabName);
         
         // Remove active class from all tabs
         document.querySelectorAll('.modal-tab').forEach(tab => {
@@ -619,30 +619,52 @@ export class ModalComponent {
         const activeTab = document.querySelector(`[data-modal-tab="${tabName}"]`);
         if (activeTab) {
             activeTab.classList.add('active');
+            console.log('✅ Tab activated:', activeTab);
+        } else {
+            console.log('❌ Tab not found:', tabName);
         }
         
         // Add active class to corresponding content
         const activeContent = document.getElementById(`${tabName}-tab`);
         if (activeContent) {
             activeContent.classList.add('active');
+            console.log('✅ Tab content activated:', activeContent.id);
+            console.log('📊 Tab content classes:', activeContent.className);
+        } else {
+            console.log('❌ Tab content not found:', `${tabName}-tab`);
         }
         
         // If switching to universidad tab, populate it with data
         if (tabName === 'universidad' && this.currentUniversityData) {
+            console.log('🏛️ Populating Universidad tab data...');
             this.updateUniversityTabData();
+            console.log('✅ Universidad tab data populated');
         }
     }
 
     updateUniversityTabData() {
-        if (!this.currentUniversityData) return;
+        if (!this.currentUniversityData) {
+            console.log('❌ No university data available for tab');
+            return;
+        }
         
         const currentProgram = this.currentUniversityData.programs[this.currentProgramIndex];
+        console.log('📊 Updating Universidad tab with program:', currentProgram.program.name);
         
         // Use the new consolidated methods
+        console.log('🔄 Calling updateUniversityMetrics...');
         this.updateUniversityMetrics(currentProgram);
+        
+        console.log('🔄 Calling updateCityDetails...');
         this.updateCityDetails(currentProgram);
+        
+        console.log('🔄 Calling updateCityAIMetrics...');
         this.updateCityAIMetrics(currentProgram);
+        
+        console.log('🔄 Calling updateCityCriteria...');
         this.updateCityCriteria(currentProgram);
+        
+        console.log('✅ All Universidad tab methods completed');
     }
 
 
@@ -741,10 +763,19 @@ export class ModalComponent {
     setElementValue(elementId, value) {
         const element = document.getElementById(elementId);
         
+        console.log(`🔍 setElementValue('${elementId}', ${value})`);
+        console.log(`🔍 Element found:`, !!element);
+        
         if (element && value !== undefined && value !== null) {
             element.innerHTML = `<span class="metric-value">${value}/10</span>`;
+            element.classList.add('show'); // Add the show class for CSS animation
+            console.log(`✅ Set ${elementId} to ${value}/10 with show class`);
         } else if (element) {
             element.innerHTML = '<span class="metric-value no-data">N/A</span>';
+            element.classList.add('show'); // Add the show class even for N/A
+            console.log(`⚠️ Set ${elementId} to N/A (value was ${value}) with show class`);
+        } else {
+            console.log(`❌ Element '${elementId}' not found in DOM!`);
         }
     }
 
@@ -978,6 +1009,8 @@ export class ModalComponent {
     updateUniversityMetrics(program) {
         const metrics = program.ai_analysis?.program_metrics || {};
         
+        console.log('🔍 University metrics data:', metrics);
+        
         // Update program AI metrics in University tab
         this.setElementValue('uniInnovacionTab', metrics.innovacion);
         this.setElementValue('uniInterdisciplinariedadTab', metrics.interdisciplinariedad);
@@ -999,8 +1032,10 @@ export class ModalComponent {
             
             if (distance !== undefined && distance !== null) {
                 distanceElement.innerHTML = `<span class="metric-value">${distance} km</span>`;
+                distanceElement.classList.add('show'); // Add show class for CSS animation
             } else {
                 distanceElement.innerHTML = '<span class="metric-value no-data">N/A</span>';
+                distanceElement.classList.add('show'); // Add show class even for N/A
             }
         }
         
@@ -1021,6 +1056,8 @@ export class ModalComponent {
      */
     updateCityAIMetrics(program) {
         const cityMetrics = program.ai_analysis?.city_metrics || {};
+        
+        console.log('🔍 City AI metrics data:', cityMetrics);
         
         // Update city AI metrics
         this.setElementValue('aiCostOfLivingTab', cityMetrics.cost_of_living);
