@@ -1961,7 +1961,7 @@ export class ModalComponent {
         if (count === 0) {
             averageSection.innerHTML = `
                 <div class="average-header">
-                    <h6 class="average-title">📊 Promedio ${sectionName}</h6>
+                    <h6 class="average-title"><i class="fas fa-chart-bar"></i> Promedio ${sectionName}</h6>
                 </div>
                 <div class="average-content">
                     <div class="average-value no-data">
@@ -1976,7 +1976,7 @@ export class ModalComponent {
             
             averageSection.innerHTML = `
                 <div class="average-header">
-                    <h6 class="average-title">📊 Promedio ${sectionName}</h6>
+                    <h6 class="average-title"><i class="fas fa-chart-bar"></i> Promedio ${sectionName}</h6>
                 </div>
                 <div class="average-content">
                     <div class="average-value ${averageColorClass}">
@@ -2010,11 +2010,11 @@ export class ModalComponent {
      * Get icon for average value
      */
     getAverageIcon(average) {
-        if (average >= 8) return '🌟';
-        if (average >= 6.5) return '⭐';
-        if (average >= 5) return '✨';
-        if (average >= 3) return '💫';
-        return '⚪';
+        if (average >= 8) return '<i class="fas fa-star"></i>';
+        if (average >= 6.5) return '<i class="fas fa-thumbs-up"></i>';
+        if (average >= 5) return '<i class="fas fa-check-circle"></i>';
+        if (average >= 3) return '<i class="fas fa-minus-circle"></i>';
+        return '<i class="fas fa-times-circle"></i>';
     }
     
     /**
