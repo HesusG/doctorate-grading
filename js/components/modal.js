@@ -683,12 +683,12 @@ export class ModalComponent {
                     
                     // Handle bold headers like "**Population**: Description"
                     if (content.includes('**') && content.includes('**:')) {
-                        const formatted = content.replace(/\*\*(.*?)\*\*:/g, '<strong class="summary-key">$1:</strong><br>');
+                        const formatted = content.replace(/\*\*(.*?)\*\*:/g, '<strong>$1:</strong><br>');
                         return `<div class="summary-point">📌 ${formatted}</div>`;
                     }
                     
                     // Handle regular markdown bold in bullet points
-                    const boldFormatted = content.replace(/\*\*(.*?)\*\*/g, '<strong class="summary-highlight">$1</strong><br>');
+                    const boldFormatted = content.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong><br>');
                     return `<div class="summary-point">📌 ${boldFormatted}</div>`;
                 }
                 
@@ -700,12 +700,12 @@ export class ModalComponent {
                 
                 // Handle regular markdown bold - add line break after
                 if (line.includes('**')) {
-                    line = line.replace(/\*\*(.*?)\*\*/g, '<strong class="summary-highlight">$1</strong><br>');
+                    line = line.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong><br>');
                 }
                 
-                // Handle italic text - add space after
+                // Handle italic text - remove italic styling, just use normal text
                 if (line.includes('*') && !line.includes('**')) {
-                    line = line.replace(/\*(.*?)\*/g, '<em class="summary-emphasis">$1</em> ');
+                    line = line.replace(/\*(.*?)\*/g, '$1 ');
                 }
                 
                 // Handle inline code - add space after
