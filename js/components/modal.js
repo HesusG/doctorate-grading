@@ -683,7 +683,7 @@ export class ModalComponent {
                     
                     // Handle bold headers like "**Population**: Description"
                     if (content.includes('**') && content.includes('**:')) {
-                        const formatted = content.replace(/\*\*(.*?)\*\*:/g, '<strong class="summary-key">$1:</strong>');
+                        const formatted = content.replace(/\*\*(.*?)\*\*:/g, '<strong class="summary-key">$1:</strong> ');
                         return `<div class="summary-point">📌 ${formatted}</div>`;
                     }
                     
@@ -698,20 +698,23 @@ export class ModalComponent {
                     return `<h6 class="summary-section-header">🔹 ${boldFormatted}</h6>`;
                 }
                 
-                // Handle regular markdown bold
+                // Handle regular markdown bold - add space after
                 if (line.includes('**')) {
-                    line = line.replace(/\*\*(.*?)\*\*/g, '<strong class="summary-highlight">$1</strong>');
+                    line = line.replace(/\*\*(.*?)\*\*/g, '<strong class="summary-highlight">$1</strong> ');
                 }
                 
-                // Handle italic text
+                // Handle italic text - add space after
                 if (line.includes('*') && !line.includes('**')) {
-                    line = line.replace(/\*(.*?)\*/g, '<em class="summary-emphasis">$1</em>');
+                    line = line.replace(/\*(.*?)\*/g, '<em class="summary-emphasis">$1</em> ');
                 }
                 
-                // Handle inline code
+                // Handle inline code - add space after
                 if (line.includes('`')) {
-                    line = line.replace(/`(.*?)`/g, '<code class="summary-code">$1</code>');
+                    line = line.replace(/`(.*?)`/g, '<code class="summary-code">$1</code> ');
                 }
+                
+                // Clean up multiple spaces and ensure proper spacing
+                line = line.replace(/\s+/g, ' ').trim();
                 
                 return `<p class="summary-text">${line}</p>`;
             })
@@ -1948,7 +1951,12 @@ export class ModalComponent {
         
         // Create new average section
         const averageSection = document.createElement('div');
-        averageSection.className = 'ai-metrics-average';
+        // Add different classes for different section types
+        if (sectionName === 'Ciudad IA') {
+            averageSection.className = 'ai-metrics-average city-ai-average';
+        } else {
+            averageSection.className = 'ai-metrics-average program-ai-average';
+        }
         
         if (count === 0) {
             averageSection.innerHTML = `
