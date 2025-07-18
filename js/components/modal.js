@@ -669,7 +669,7 @@ export class ModalComponent {
 
 
     preprocessSummaryText(text) {
-        if (!text) return '<p>No hay información disponible.</p>';
+        if (!text) return '<div class="no-summary-message">📋 No hay información disponible.</div>';
         
         return text
             .split('\n')
@@ -683,37 +683,37 @@ export class ModalComponent {
                     
                     // Handle bold headers like "**Population**: Description"
                     if (content.includes('**') && content.includes('**:')) {
-                        const formatted = content.replace(/\*\*(.*?)\*\*:/g, '<strong>$1:</strong>');
-                        return `<div class="explanation-point">• ${formatted}</div>`;
+                        const formatted = content.replace(/\*\*(.*?)\*\*:/g, '<strong class="summary-key">$1:</strong>');
+                        return `<div class="summary-point">📌 ${formatted}</div>`;
                     }
                     
                     // Handle regular markdown bold in bullet points
-                    const boldFormatted = content.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-                    return `<div class="explanation-point">• ${boldFormatted}</div>`;
+                    const boldFormatted = content.replace(/\*\*(.*?)\*\*/g, '<strong class="summary-highlight">$1</strong>');
+                    return `<div class="summary-point">📌 ${boldFormatted}</div>`;
                 }
                 
                 // Handle section headers (lines ending with colon)
                 if (line.includes(':') && line.length < 100 && !line.includes('.')) {
                     const boldFormatted = line.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-                    return `<h6 class="explanation-header">${boldFormatted}</h6>`;
+                    return `<h6 class="summary-section-header">🔹 ${boldFormatted}</h6>`;
                 }
                 
                 // Handle regular markdown bold
                 if (line.includes('**')) {
-                    line = line.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+                    line = line.replace(/\*\*(.*?)\*\*/g, '<strong class="summary-highlight">$1</strong>');
                 }
                 
                 // Handle italic text
                 if (line.includes('*') && !line.includes('**')) {
-                    line = line.replace(/\*(.*?)\*/g, '<em>$1</em>');
+                    line = line.replace(/\*(.*?)\*/g, '<em class="summary-emphasis">$1</em>');
                 }
                 
                 // Handle inline code
                 if (line.includes('`')) {
-                    line = line.replace(/`(.*?)`/g, '<code>$1</code>');
+                    line = line.replace(/`(.*?)`/g, '<code class="summary-code">$1</code>');
                 }
                 
-                return `<p class="explanation-text">${line}</p>`;
+                return `<p class="summary-text">${line}</p>`;
             })
             .join('');
     }
@@ -1017,6 +1017,9 @@ export class ModalComponent {
         this.setElementValue('uniImpactoTab', metrics.impacto);
         this.setElementValue('uniInternacionalTab', metrics.internacional);
         this.setElementValue('uniAplicabilidadTab', metrics.aplicabilidad);
+        
+        // Calculate and display average for Program AI metrics
+        this.calculateAndDisplayProgramAIAverage(metrics);
     }
 
     /**
@@ -1064,6 +1067,9 @@ export class ModalComponent {
         this.setElementValue('aiMedicalQualityTab', cityMetrics.medical_quality);
         this.setElementValue('aiTransportQualityTab', cityMetrics.transport_quality);
         this.setElementValue('aiAirQualityTab', cityMetrics.air_quality);
+        
+        // Calculate and display average for City AI metrics
+        this.calculateAndDisplayCityAIAverage(cityMetrics);
     }
 
     /**
@@ -1882,6 +1888,127 @@ export class ModalComponent {
         });
     }
 
+    /**
+     * Calculate and display average for Program AI metrics
+     */
+    calculateAndDisplayProgramAIAverage(metrics) {
+        const metricValues = [
+            metrics.innovacion,
+            metrics.interdisciplinariedad,
+            metrics.impacto,
+            metrics.internacional,
+            metrics.aplicabilidad
+        ].filter(val => val !== undefined && val !== null && val > 0);
+        
+        if (metricValues.length === 0) {
+            this.displayAverageSection('universityMetricsTab', 'Programa IA', 0, 0);
+            return;
+        }
+        
+        const average = metricValues.reduce((sum, val) => sum + parseFloat(val), 0) / metricValues.length;
+        this.displayAverageSection('universityMetricsTab', 'Programa IA', average, metricValues.length);
+        
+        console.log('📊 Program AI Average:', average.toFixed(1), 'from', metricValues.length, 'metrics');
+    }
+    
+    /**
+     * Calculate and display average for City AI metrics
+     */
+    calculateAndDisplayCityAIAverage(cityMetrics) {
+        const metricValues = [
+            cityMetrics.cost_of_living,
+            cityMetrics.medical_quality,
+            cityMetrics.transport_quality,
+            cityMetrics.air_quality
+        ].filter(val => val !== undefined && val !== null && val > 0);
+        
+        if (metricValues.length === 0) {
+            this.displayAverageSection('cityMetricsTab', 'Ciudad IA', 0, 0);
+            return;
+        }
+        
+        const average = metricValues.reduce((sum, val) => sum + parseFloat(val), 0) / metricValues.length;
+        this.displayAverageSection('cityMetricsTab', 'Ciudad IA', average, metricValues.length);
+        
+        console.log('📊 City AI Average:', average.toFixed(1), 'from', metricValues.length, 'metrics');
+    }
+    
+    /**
+     * Display average section with beautiful styling
+     */
+    displayAverageSection(containerId, sectionName, average, count) {
+        const container = document.getElementById(containerId);
+        if (!container) return;
+        
+        // Remove existing average section if it exists
+        const existingAverage = container.querySelector('.ai-metrics-average');
+        if (existingAverage) {
+            existingAverage.remove();
+        }
+        
+        // Create new average section
+        const averageSection = document.createElement('div');
+        averageSection.className = 'ai-metrics-average';
+        
+        if (count === 0) {
+            averageSection.innerHTML = `
+                <div class="average-header">
+                    <h6 class="average-title">📊 Promedio ${sectionName}</h6>
+                </div>
+                <div class="average-content">
+                    <div class="average-value no-data">
+                        <span class="average-number">N/A</span>
+                        <span class="average-label">Sin datos</span>
+                    </div>
+                </div>
+            `;
+        } else {
+            const averageColorClass = this.getAverageColorClass(average);
+            const averageIcon = this.getAverageIcon(average);
+            
+            averageSection.innerHTML = `
+                <div class="average-header">
+                    <h6 class="average-title">📊 Promedio ${sectionName}</h6>
+                </div>
+                <div class="average-content">
+                    <div class="average-value ${averageColorClass}">
+                        <span class="average-icon">${averageIcon}</span>
+                        <span class="average-number">${average.toFixed(1)}</span>
+                        <span class="average-scale">/10</span>
+                    </div>
+                    <div class="average-meta">
+                        <span class="average-count">${count} métricas</span>
+                    </div>
+                </div>
+            `;
+        }
+        
+        // Insert at the beginning of the container
+        container.insertBefore(averageSection, container.firstChild);
+    }
+    
+    /**
+     * Get color class for average value
+     */
+    getAverageColorClass(average) {
+        if (average >= 8) return 'average-excellent';
+        if (average >= 6.5) return 'average-good';
+        if (average >= 5) return 'average-fair';
+        if (average >= 3) return 'average-poor';
+        return 'average-very-poor';
+    }
+    
+    /**
+     * Get icon for average value
+     */
+    getAverageIcon(average) {
+        if (average >= 8) return '🌟';
+        if (average >= 6.5) return '⭐';
+        if (average >= 5) return '✨';
+        if (average >= 3) return '💫';
+        return '⚪';
+    }
+    
     /**
      * Force update modal positions (for debugging)
      */

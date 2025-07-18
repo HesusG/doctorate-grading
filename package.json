@@ -1,0 +1,42 @@
+{
+  "name": "doctorate-grading-db-migration",
+  "version": "1.0.0",
+  "description": "Professional database migration framework for the Doctorate Grading POC application",
+  "main": "scripts/migration-framework.js",
+  "scripts": {
+    "setup": "node scripts/setup.js",
+    "init-db": "node scripts/migration-framework.js",
+    "migrate-data": "node scripts/data-migrator.js",
+    "validate-db": "node scripts/validate-migration.js",
+    "test-migration": "node scripts/test-migration.js",
+    "clean": "rm -rf db/doctorate.sqlite db/*.json",
+    "reset": "npm run clean && npm run setup"
+  },
+  "keywords": [
+    "sqlite",
+    "database",
+    "migration",
+    "phd",
+    "university",
+    "education"
+  ],
+  "author": "Doctorate Grading Development Team",
+  "license": "MIT",
+  "dependencies": {
+    "sqlite3": "^5.1.6"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "local"
+  },
+  "bugs": {
+    "url": "local"
+  },
+  "homepage": "local"
+}
