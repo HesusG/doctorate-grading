@@ -6683,16 +6683,16 @@ tr:hover {
     animation: slideInUp 0.6s ease-out;
 }
 
-/* City AI Average - Tinted blue glass */
+/* City AI Average - Same as Program AI */
 .ai-metrics-average.city-ai-average {
-    background: rgba(173, 216, 230, 0.15);
-    border: 1px solid rgba(173, 216, 230, 0.3);
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(240, 147, 251, 0.3);
 }
 
 /* Program AI Average - Tinted gray glass */
 .ai-metrics-average.program-ai-average {
-    background: rgba(200, 200, 200, 0.12);
-    border: 1px solid rgba(200, 200, 200, 0.25);
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(240, 147, 251, 0.3);
 }
 
 @keyframes slideInUp {
@@ -6774,45 +6774,50 @@ tr:hover {
     border: 1px solid rgba(240, 147, 251, 0.2);
 }
 
-/* Average color variants - Glass effect with subtle tinting */
+/* Average color variants - Glass effect with performance-based colors */
+/* Full Green: 9.4+ */
 .ai-metrics-average .average-value.average-excellent {
-    background: rgba(173, 216, 230, 0.08);
+    background: rgba(16, 185, 129, 0.2);
     border-radius: 8px;
     padding: 8px;
     margin: 5px 0;
-    box-shadow: 0 1px 5px rgba(173, 216, 230, 0.1);
+    box-shadow: 0 1px 8px rgba(16, 185, 129, 0.3), 0 0 15px rgba(16, 185, 129, 0.1);
 }
 
+/* Yellow to Green: 7.9-9.3 */
+.ai-metrics-average .average-value.average-very-good {
+    background: linear-gradient(135deg, rgba(234, 179, 8, 0.15), rgba(34, 197, 94, 0.15));
+    border-radius: 8px;
+    padding: 8px;
+    margin: 5px 0;
+    box-shadow: 0 1px 8px rgba(134, 188, 51, 0.2), 0 0 12px rgba(134, 188, 51, 0.1);
+}
+
+/* Yellow to Green: 6-7.8 */
 .ai-metrics-average .average-value.average-good {
-    background: rgba(34, 197, 94, 0.15);
+    background: linear-gradient(135deg, rgba(250, 204, 21, 0.15), rgba(34, 197, 94, 0.15));
     border-radius: 8px;
     padding: 8px;
     margin: 5px 0;
-    box-shadow: 0 1px 5px rgba(34, 197, 94, 0.2);
+    box-shadow: 0 1px 8px rgba(192, 201, 21, 0.2), 0 0 12px rgba(192, 201, 21, 0.1);
 }
 
+/* Yellow: 5-5.9 */
 .ai-metrics-average .average-value.average-fair {
-    background: rgba(255, 215, 0, 0.08);
+    background: rgba(250, 204, 21, 0.15);
     border-radius: 8px;
     padding: 8px;
     margin: 5px 0;
-    box-shadow: 0 1px 5px rgba(255, 215, 0, 0.1);
+    box-shadow: 0 1px 8px rgba(250, 204, 21, 0.2), 0 0 12px rgba(250, 204, 21, 0.1);
 }
 
+/* Red: Below 5 */
 .ai-metrics-average .average-value.average-poor {
-    background: rgba(255, 165, 0, 0.08);
+    background: rgba(239, 68, 68, 0.15);
     border-radius: 8px;
     padding: 8px;
     margin: 5px 0;
-    box-shadow: 0 1px 5px rgba(255, 165, 0, 0.1);
-}
-
-.ai-metrics-average .average-value.average-very-poor {
-    background: rgba(255, 99, 132, 0.08);
-    border-radius: 8px;
-    padding: 8px;
-    margin: 5px 0;
-    box-shadow: 0 1px 5px rgba(255, 99, 132, 0.1);
+    box-shadow: 0 1px 8px rgba(239, 68, 68, 0.2), 0 0 12px rgba(239, 68, 68, 0.1);
 }
 
 .ai-metrics-average .average-value.no-data {

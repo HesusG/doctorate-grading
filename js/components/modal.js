@@ -1999,21 +1999,21 @@ export class ModalComponent {
      * Get color class for average value
      */
     getAverageColorClass(average) {
-        if (average >= 8) return 'average-excellent';
-        if (average >= 6.5) return 'average-good';
+        if (average >= 9.4) return 'average-excellent';
+        if (average >= 7.9) return 'average-very-good';
+        if (average >= 6) return 'average-good';
         if (average >= 5) return 'average-fair';
-        if (average >= 3) return 'average-poor';
-        return 'average-very-poor';
+        return 'average-poor';
     }
     
     /**
      * Get icon for average value
      */
     getAverageIcon(average) {
-        if (average >= 8) return '<i class="fas fa-star"></i>';
-        if (average >= 6.5) return '<i class="fas fa-thumbs-up"></i>';
-        if (average >= 5) return '<i class="fas fa-check-circle"></i>';
-        if (average >= 3) return '<i class="fas fa-minus-circle"></i>';
+        if (average >= 9.4) return '<i class="fas fa-star"></i>';
+        if (average >= 7.9) return '<i class="fas fa-check-circle"></i>';
+        if (average >= 6) return '<i class="fas fa-check-circle"></i>';
+        if (average >= 5) return '<i class="fas fa-minus-circle"></i>';
         return '<i class="fas fa-times-circle"></i>';
     }
     
