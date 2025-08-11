@@ -671,39 +671,25 @@ export class ModalComponent {
     preprocessSummaryText(text) {
         if (!text) return '<div class="no-summary-message">📋 No hay información disponible.</div>';
         
-        // Process the text as a continuous string to properly handle section breaks
+        // If text is an array, concatenate it
+        if (Array.isArray(text)) {
+            text = text.join(' ');
+        }
+        
         let processedText = text.trim();
         
-        // Handle bold patterns that should start new sections after periods
-        // This handles cases like "...text. **NewSection**: more text"
-        processedText = processedText.replace(/\. \*\*(.*?)\*\*:/g, '.</p><p class="summary-text"><strong>$1:</strong><br>');
-        
-        // Handle bold patterns at the beginning or after newlines
-        processedText = processedText.replace(/(^|\n)\*\*(.*?)\*\*:/g, '$1<strong>$2:</strong><br>');
-        
-        // Handle remaining bold patterns
-        processedText = processedText.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-        
-        // Remove italic styling - just use normal text
+        // Remove any existing markdown formatting
+        processedText = processedText.replace(/\*\*(.*?)\*\*/g, '$1');
         processedText = processedText.replace(/\*(.*?)\*/g, '$1');
         
-        // Handle inline code
-        processedText = processedText.replace(/`(.*?)`/g, '<code class="summary-code">$1</code>');
+        // First, bold the very first word/phrase followed by colon at the beginning
+        processedText = processedText.replace(/^([A-Za-zÀ-ÿ\s]+):/, '<strong>$1:</strong>');
         
-        // Clean up multiple spaces and normalize whitespace
-        processedText = processedText.replace(/\s+/g, ' ').trim();
+        // Then find patterns where a word/phrase is followed by a colon after a period
+        // This regex looks for: period + space + word(s) + colon
+        processedText = processedText.replace(/\.\s+([A-Za-zÀ-ÿ\s]+):/g, '.<br><br><strong>$1:</strong>');
         
-        // If the text doesn't start with a paragraph tag, wrap it
-        if (!processedText.startsWith('<p')) {
-            processedText = `<p class="summary-text">${processedText}`;
-        }
-        
-        // If the text doesn't end with a closing paragraph tag, add it
-        if (!processedText.endsWith('</p>')) {
-            processedText = `${processedText}</p>`;
-        }
-        
-        return processedText;
+        return `<p class="summary-text">${processedText}</p>`;
     }
 
     updateCityCriteria(city) {
@@ -717,6 +703,18 @@ export class ModalComponent {
         this.displayCityCriteriaRating('transportation', criteria.transportation || 0);
         this.displayCityCriteriaRating('air_quality', criteria.air_quality || 0);
         this.displayCityCriteriaRating('weather', criteria.weather || 0);
+        
+        // Calculate and display average for city criteria
+        const criteriaValues = [
+            criteria.cost_effectiveness || 0,
+            criteria.medical_services || 0,
+            criteria.transportation || 0,
+            criteria.air_quality || 0,
+            criteria.weather || 0
+        ];
+        
+        const average = criteriaValues.reduce((sum, val) => sum + val, 0) / criteriaValues.length;
+        this.displayCityCriteriaAverage(average);
     }
 
     displayCityCriteriaRating(criterion, value) {
@@ -746,6 +744,58 @@ export class ModalComponent {
                 }
             });
         }
+    }
+
+    displayCityCriteriaAverage(average) {
+        // Find the city criteria section
+        const criteriaSection = document.getElementById('cityCriteriaSection');
+        if (!criteriaSection) return;
+        
+        // Remove existing average section if it exists
+        const existingAverage = criteriaSection.querySelector('.ai-metrics-average');
+        if (existingAverage) {
+            existingAverage.remove();
+        }
+        
+        // Create new average section
+        const averageSection = document.createElement('div');
+        averageSection.className = 'ai-metrics-average city-criteria-average';
+        
+        if (average === 0) {
+            averageSection.innerHTML = `
+                <div class="average-header">
+                    <h6 class="average-title"><i class="fas fa-chart-bar"></i> Promedio Criterios Ciudad</h6>
+                </div>
+                <div class="average-content">
+                    <div class="average-value no-data">
+                        <span class="average-number">N/A</span>
+                        <span class="average-label">Sin datos</span>
+                    </div>
+                </div>
+            `;
+        } else {
+            const averageColorClass = this.getAverageColorClass(average, 5); // 5-point scale for criteria
+            const averageIcon = this.getAverageIcon(average, 5);
+            
+            averageSection.innerHTML = `
+                <div class="average-header">
+                    <h6 class="average-title"><i class="fas fa-chart-bar"></i> Promedio Criterios Ciudad</h6>
+                </div>
+                <div class="average-content">
+                    <div class="average-value ${averageColorClass}">
+                        <span class="average-icon">${averageIcon}</span>
+                        <span class="average-number">${average.toFixed(1)}</span>
+                        <span class="average-scale">/5</span>
+                    </div>
+                    <div class="average-meta">
+                        <span class="average-count">5 criterios</span>
+                    </div>
+                </div>
+            `;
+        }
+        
+        // Insert at the beginning of the criteria section
+        criteriaSection.insertBefore(averageSection, criteriaSection.firstChild);
     }
 
     setElementValue(elementId, value) {
@@ -1983,23 +2033,43 @@ export class ModalComponent {
     /**
      * Get color class for average value
      */
-    getAverageColorClass(average) {
-        if (average >= 9.4) return 'average-excellent';
-        if (average >= 7.9) return 'average-very-good';
-        if (average >= 6) return 'average-good';
-        if (average >= 5) return 'average-fair';
-        return 'average-poor';
+    getAverageColorClass(average, scale = 10) {
+        if (scale === 5) {
+            // 5-point scale for criteria
+            if (average >= 4.7) return 'average-excellent';
+            if (average >= 3.9) return 'average-very-good';
+            if (average >= 3) return 'average-good';
+            if (average >= 2.5) return 'average-fair';
+            return 'average-poor';
+        } else {
+            // 10-point scale for AI metrics
+            if (average >= 9.4) return 'average-excellent';
+            if (average >= 7.9) return 'average-very-good';
+            if (average >= 6) return 'average-good';
+            if (average >= 5) return 'average-fair';
+            return 'average-poor';
+        }
     }
     
     /**
      * Get icon for average value
      */
-    getAverageIcon(average) {
-        if (average >= 9.4) return '<i class="fas fa-star"></i>';
-        if (average >= 7.9) return '<i class="fas fa-check-circle"></i>';
-        if (average >= 6) return '<i class="fas fa-check-circle"></i>';
-        if (average >= 5) return '<i class="fas fa-minus-circle"></i>';
-        return '<i class="fas fa-times-circle"></i>';
+    getAverageIcon(average, scale = 10) {
+        if (scale === 5) {
+            // 5-point scale for criteria
+            if (average >= 4.7) return '<i class="fas fa-star"></i>';
+            if (average >= 3.9) return '<i class="fas fa-check-circle"></i>';
+            if (average >= 3) return '<i class="fas fa-check-circle"></i>';
+            if (average >= 2.5) return '<i class="fas fa-minus-circle"></i>';
+            return '<i class="fas fa-times-circle"></i>';
+        } else {
+            // 10-point scale for AI metrics
+            if (average >= 9.4) return '<i class="fas fa-star"></i>';
+            if (average >= 7.9) return '<i class="fas fa-check-circle"></i>';
+            if (average >= 6) return '<i class="fas fa-check-circle"></i>';
+            if (average >= 5) return '<i class="fas fa-minus-circle"></i>';
+            return '<i class="fas fa-times-circle"></i>';
+        }
     }
     
     /**

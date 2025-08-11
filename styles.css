@@ -6689,6 +6689,12 @@ tr:hover {
     border: 1px solid rgba(240, 147, 251, 0.3);
 }
 
+/* City Criteria Average - Similar glassomorphism style */
+.ai-metrics-average.city-criteria-average {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(240, 147, 251, 0.3);
+}
+
 /* Program AI Average - Tinted gray glass */
 .ai-metrics-average.program-ai-average {
     background: rgba(255, 255, 255, 0.1);
